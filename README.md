@@ -1,132 +1,127 @@
-✨ MindMerge RAG Assistant
+# ✨ MindMerge — Local RAG Academic AI Assistant
 
-MindMerge is a privacy-first Academic AI Assistant that transforms your local lecture notes into an interactive knowledge base. By leveraging Retrieval-Augmented Generation (RAG), it allows you to chat with your PDFs using a local LLM (TinyLlama) without any data leaving your hardware.
+> **Turn your lecture PDFs into a private, intelligent AI tutor — fully offline.**
 
-🌟 Key Features
+![License](https://img.shields.io/badge/license-MIT-green)
+![Local AI](https://img.shields.io/badge/AI-100%25%20Local-blue)
+![Powered by Ollama](https://img.shields.io/badge/Ollama-LLM-orange)
+![RAG](https://img.shields.io/badge/Architecture-RAG-purple)
 
-🛡️ 100% Private: All processing happens on your local CPU/GPU. No cloud, no leaks.
+---
 
-📚 Intelligent RAG: Searches your PDFs to provide answers based on your actual study materials.
+## 🚀 What is MindMerge?
 
-⚡ Zero-Cost: No subscription or API keys required (powered by Ollama).
+**MindMerge** is a **privacy-first Academic AI Assistant** that converts your local lecture notes and PDFs into an **interactive knowledge base** using **Retrieval-Augmented Generation (RAG)**.
 
-📝 Citation Support: Every answer includes references to the specific PDFs used.
+💡 Ask questions, get precise answers, and see **exact citations** — all **without sending your data to the cloud**.
 
-🎨 Modern UI: High-performance dashboard built with CustomTkinter.
+---
 
-🏗️ Technology Stack
+## 🔐 Why MindMerge?
 
-Component
+✔️ **100% Offline & Private** — Your data never leaves your machine  
+✔️ **Zero Cost** — No API keys, no subscriptions  
+✔️ **Source-Aware Answers** — Every response is backed by your PDFs  
+✔️ **Fast & Lightweight** — Optimized local inference  
+✔️ **Academic-Focused** — Built for students & researchers  
 
-Technology
+---
 
-Language Model
+## 🌟 Key Features
 
-TinyLlama (via Ollama)
+🛡️ **Privacy by Design**  
+All processing runs locally using **Ollama** — no cloud dependency.
 
-Embeddings
+📚 **Intelligent RAG Pipeline**  
+Answers are grounded in your own lecture materials using semantic search.
 
-Nomic-Embed-Text (via Ollama)
+⚡ **Zero-Cost AI**  
+Powered by **TinyLlama** & **Nomic embeddings** — free forever.
 
-Vector DB
+📝 **Citation & References**  
+Every answer includes exact PDF references.
 
-FAISS (Facebook AI Similarity Search)
+🎨 **Modern Desktop UI**  
+Clean, responsive dashboard built with **CustomTkinter**.
 
-Backend
+---
 
-Node.js + Express + LangChain
+## 🏗️ Technology Stack
 
-Frontend
+| Component        | Technology |
+|-----------------|------------|
+| 💬 LLM          | TinyLlama (Ollama) |
+| 🧠 Embeddings   | nomic-embed-text |
+| 📦 Vector Store | FAISS |
+| 🔌 Backend      | Node.js, Express, LangChain |
+| 🖥️ Frontend     | Python, CustomTkinter |
 
-Python + CustomTkinter
+---
 
-🛠️ Prerequisites & Setup
+## 🛠️ Prerequisites
 
-1. Install Ollama
+### 1️⃣ Install Ollama
+Download from: https://ollama.com
 
-Download and install Ollama. Once installed, pull the required models:
-
-# High-quality local embeddings
+Pull required models:
+```bash
 ollama pull nomic-embed-text
-
-# Lightweight, fast chat model
 ollama pull tinyllama
 
-
-2. Backend Installation (Node.js)
-
-In the project root, install the dependencies. We use --legacy-peer-deps to ensure compatibility with LangChain's community packages.
-
+⚙️ Installation
+Backend (Node.js)
 npm install --legacy-peer-deps
 
-
-3. Frontend Installation (Python)
-
-Install the GUI requirements:
-
+Frontend (Python)
 pip install customtkinter requests
 
-
-🚦 Execution Guide
-
-Step 1: Fire up the Backend
-
+▶️ How to Run
+Step 1: Start Backend
 node server.mjs
 
 
-Expected output: 🚀 TINYLLAMA Backend running on http://localhost:5000
+✅ Expected:
 
-Step 2: Launch the GUI
+🚀 TINYLLAMA Backend running on http://localhost:5000
 
+Step 2: Launch GUI
 python main.py
 
-
-📖 Usage Workflow
-
-Add Knowledge: Click the 📁 Add Lecture PDF button in the sidebar.
-
-Indexing: The system chunks the text into 500-character segments and creates a mathematical "map" (Embeddings).
-
-Query: Type a question like "Explain the matrix structure mentioned in the lecture notes."
-
-Reference: Review the 📍 Reference tags at the bottom of the AI response to see which document provided the data.
-
-🧠 System Architecture
-
+🧠 System Architecture (RAG Flow)
 graph TD
-    A[PDF Document] -->|Loader| B(Text Splitting)
-    B -->|Nomic Embeddings| C[FAISS Vector Store]
-    D[User Query] -->|Similarity Search| C
-    C -->|Top Context Chunks| E[Prompt Template]
-    D --> E
-    E -->|Context + Query| F[TinyLlama Model]
-    F -->|Response| G[GUI Output]
+    A[PDF Documents] --> B[Text Chunking]
+    B --> C[Nomic Embeddings]
+    C --> D[FAISS Vector Store]
+    E[User Query] --> D
+    D --> F[Context Retrieval]
+    F --> G[Prompt Template]
+    G --> H[TinyLlama (LLM)]
+    H --> I[Answer + Citations]
 
+Usage Guide
+📁 Add Knowledge
 
-❓ Troubleshooting
+Upload lecture PDFs using the sidebar button.
 
-Issue
+🧩 Indexing
 
-Solution
+Documents are split into 500-character chunks and embedded into FAISS.
 
-"Connection Error"
+💬 Ask Questions
 
-Ensure the Node.js server is running and port 5000 is open.
+Example:
+Explain the matrix structure discussed in lecture 3
+📍 Verify Sources
 
-"Ollama might be offline"
+Check citation tags under each response to see exact references.
 
-Check if the Ollama application is active in your system tray.
-
-Empty References
-
-Make sure you have uploaded at least one PDF before asking study-specific questions.
-
-Slow Indexing
-
-Close heavy background apps; indexing utilizes CPU for generating embeddings.
+🧪 Troubleshooting
+Issue	Solution
+❌ Connection Error	Ensure backend is running on port 5000
+⚠️ Ollama Offline	Confirm Ollama is running in system tray
+📄 No References	Upload at least one PDF
+🐢 Slow Indexing	Close heavy background applications
 
 📄 License
 
-This project is open-source under the MIT License.
-
-Developed for Academic Excellence — Keep Learning! 🚀
+MIT License — free to use, modify, and distribute.
